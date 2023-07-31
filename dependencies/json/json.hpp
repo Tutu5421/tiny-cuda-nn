@@ -3807,7 +3807,7 @@ struct is_compatible_array_type_impl <
     enable_if_t <
     is_detected<iterator_t, CompatibleArrayType>::value&&
     is_iterator_traits<iterator_traits<detected_t<iterator_t, CompatibleArrayType>>>::value&&
-// special case for types like std::filesystem::path whose iterator's value_type are themselves
+// special case for types like std::experimental::filesystem::path whose iterator's value_type are themselves
 // c.f. https://github.com/nlohmann/json/pull/3073
     !std::is_same<CompatibleArrayType, detected_t<range_value_t, CompatibleArrayType>>::value >>
 {
@@ -3842,7 +3842,7 @@ struct is_constructible_array_type_impl <
 is_detected<iterator_t, ConstructibleArrayType>::value&&
 is_iterator_traits<iterator_traits<detected_t<iterator_t, ConstructibleArrayType>>>::value&&
 is_detected<range_value_t, ConstructibleArrayType>::value&&
-// special case for types like std::filesystem::path whose iterator's value_type are themselves
+// special case for types like std::experimental::filesystem::path whose iterator's value_type are themselves
 // c.f. https://github.com/nlohmann/json/pull/3073
 !std::is_same<ConstructibleArrayType, detected_t<range_value_t, ConstructibleArrayType>>::value&&
         is_complete_type <
@@ -3951,7 +3951,7 @@ T conditional_static_cast(U value)
 
 
 #ifdef JSON_HAS_CPP_17
-    #include <filesystem>
+    #include <experimental/filesystem>
 #endif
 
 namespace nlohmann
@@ -4381,7 +4381,7 @@ void from_json(const BasicJsonType& j, std::unordered_map<Key, Value, Hash, KeyE
 
 #ifdef JSON_HAS_CPP_17
 template<typename BasicJsonType>
-void from_json(const BasicJsonType& j, std::filesystem::path& p)
+void from_json(const BasicJsonType& j, std::experimental::filesystem::path& p)
 {
     if (JSON_HEDLEY_UNLIKELY(!j.is_string()))
     {
@@ -4627,7 +4627,7 @@ class tuple_element<N, ::nlohmann::detail::iteration_proxy_value<IteratorType >>
 
 
 #ifdef JSON_HAS_CPP_17
-    #include <filesystem>
+    #include <experimental/filesystem>
 #endif
 
 namespace nlohmann
@@ -5004,7 +5004,7 @@ void to_json(BasicJsonType& j, const T& t)
 
 #ifdef JSON_HAS_CPP_17
 template<typename BasicJsonType>
-void to_json(BasicJsonType& j, const std::filesystem::path& p)
+void to_json(BasicJsonType& j, const std::experimental::filesystem::path& p)
 {
     j = p.string();
 }
